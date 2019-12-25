@@ -1,0 +1,150 @@
+# 191-35-2791_CapstoneProject#include<stdio.h>
+#include<stdlib.h>
+int total = 0;
+FILE *ptr;
+
+void menu();
+void calculation();
+void Ptotal();
+void history();
+
+void main()
+{
+    int ch;
+    char con;
+    level:
+    menu();
+    scanf("%d",&ch);
+    switch(ch)
+    {
+    case 0:
+        {
+            exit(0);
+            break;
+        }
+    case 1:
+        {
+            calculation(1);
+            break;
+        }
+        case 2:
+        {
+            calculation(2);
+            break;
+        }
+        case 3:
+        {
+             calculation(3);
+            break;
+        }
+        case 4:
+        {
+             calculation(4);
+            break;
+        }
+        case 5:
+        {
+             calculation(5);
+            break;
+        }
+        case 6:
+            {
+                total = 0;
+                goto level;
+                break;
+            }
+
+        case 7:
+            {
+               history();
+               goto level;
+               break;
+            }
+        default:
+            {
+                goto level;
+            }
+    }
+    fflush(stdin);
+    printf("\n\t\tWant to buy more(y/n): ");
+    scanf("%c",&con);
+    if(con == 'y')
+    {
+       goto level;
+    }
+    else
+    {
+
+        Ptotal();
+
+    }
+
+}
+void menu()
+{
+    printf("\t\t\t\t---Shop products---\n\n");
+    printf("\t\t1. pen     10tk/per\n");
+    printf("\t\t2. pencil   05/per\n");
+    printf("\t\t3. Sharpner 05/per\n");
+    printf("\t\t4. Eraser   05/per\n");
+    printf("\t\t5. Paper    02/per\n\n");
+    printf("\t\t6. Refresh\n");
+
+    printf("\t\t7. History\n");
+    printf("\t\t0. exit\n");
+    printf("\t-----------------------\n");
+    printf("Enter choice: ");
+}
+void calculation(int oparetion)
+{
+    int quantity=0;
+    printf("Enter Quantity: ");
+    scanf("%d",&quantity);
+    if(oparetion == 1)
+    {
+        total = total + (10*quantity);
+    }
+    else if(oparetion == 2)
+    {
+        total = total + (5*quantity);
+    }
+    else if(oparetion == 3)
+    {
+        total = total + (5*quantity);
+    }
+    else if(oparetion == 4)
+    {
+        total = total + (5*quantity);
+    }
+    else if(oparetion == 5)
+    {
+        total = total + (2*quantity);
+    }
+
+}
+void Ptotal()
+{
+    char name[15];
+    fflush(stdin);
+    printf("\nEnter customer name :");
+    gets(name);
+    printf("\n\t\t\tTOTAL : %d\n",total);
+    getch();
+    ptr = fopen("data.txt","a");
+
+    fprintf(ptr,"name: %s amount: %d\n",name,total);
+    fclose(ptr);
+    total = 0;
+    main();
+}
+void history()
+{
+
+    char c;
+    ptr = fopen("data.txt","r");
+   while((c=fgetc(ptr))!=EOF) {
+      printf("%c",c);
+   }
+    fclose(ptr);
+    getch();
+}
